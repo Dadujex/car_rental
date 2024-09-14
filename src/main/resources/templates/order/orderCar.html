@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/defaultLayout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div layout:fragment="content" class="content">
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="form-container p-4 shadow bg-white" style="width: 30%">
+
+      <h1 class="mb-4 text-center"><span th:text="${#strings.capitalizeWords(car.getName())}"></span> Reservation Form</h1>
+
+      <form action="#" method="post" th:object="${order}" th:action="@{/submitOrder}">
+        <input type="hidden" th:field="*{numberOfDays}" th:value="${order.getNumberOfDays()}">
+        <input type="hidden" th:field="*{totalPrice}" th:value="${order.getTotalPrice()}">
+        <input type="hidden" th:field="*{startDate}" th:value="${order.getStartDate()}">
+        <input type="hidden" th:field="*{endDate}" th:value="${order.getEndDate()}">
+        <input type="hidden" th:field="*{carId}" th:value="${order.getId()}">
+
+        <div class="row mb-4 ">
+          <h4 class="mb-2">Reservation details</h4>
+          <p class="mb-2">Start date: <span th:text="${#dates.format(order.getStartDate(), 'yyyy-MM-dd')}"></span></p>
+          <p class="mb-2">End date: <span th:text="${#dates.format(order.getEndDate(), 'yyyy-MM-dd')}"></span></p>
+          <p>Total price: <span th:text="${order.getTotalPrice()}"></span> USD</p>
+        </div>
+        <div class="row mb-3">
+          <label for="name" class="col-sm-4 col-form-label">Full name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="email" class="col-sm-4 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="address" class="col-sm-4 col-form-label">Address</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="address" th:field="*{address}" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="phone" class="col-sm-4 col-form-label">Phone number</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="phone" th:field="*{phone}" required>
+          </div>
+        </div>
+        <div class="row">
+          <p class="my-4" style="display: none">Reservation is from <span th:text="${#dates.format(order.getStartDate(), 'yyyy-MM-dd')}"></span>
+            to <span th:text="${#dates.format(order.getEndDate(), 'yyyy-MM-dd')}"></span>.
+            This makes it a total of <strong><span th:text="${order.getNumberOfDays()}"></span> days</strong> and
+            <strong th:text="${order.getTotalPrice()}"></strong> dollars.<br>
+            Please submit the form to confirm your order.</p>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+</html>

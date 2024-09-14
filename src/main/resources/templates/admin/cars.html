@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/defaultLayout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div layout:fragment="content" >
+
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-4">
+      <div th:if="${!#strings.isEmpty(message)}">
+        <div class="alert alert-danger mb-3" role="alert" th:text="${message}">
+          A simple danger alert—check it out!
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body shadow">
+          <h1 class="mb-4 text-center">Cars</h1>
+          <table class="table table-striped text-center">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Active</th>
+              <th scope="col">Price / Day</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr th:each="car : ${cars}" class="align-middle">
+                <td th:text="${car.name}"></td>
+                <td th:text="${car.active}"></td>
+                <td th:text="${car.price} + ' USD'"></td>
+                <td>
+                  <form action="#" th:action="@{/admin/cars/edit}" th:object="${car}" method="post">
+                    <input name="id" type="hidden" th:value="${car.id}">
+                    <input name="name" type="hidden" th:value="${car.name}">
+                    <input name="active" type="hidden" th:value="${car.active}">
+                    <input name="price" type="hidden" th:value="${car.price}">
+                    <button type="submit" class="btn btn-outline-primary">Edit</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="#" th:action="@{/admin/cars/delete}" th:object="${car}" method="post">
+                    <input name="id" type="hidden" th:value="${car.id}">
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</html>

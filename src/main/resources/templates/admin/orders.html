@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/defaultLayout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div layout:fragment="content" >
+
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card">
+            <div class="card-body text-center shadow">
+                <h1 class="mb-3">Orders</h1>
+                <table class="table table-striped align-items-center">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Phone number</th>
+                        <th>Reserved days</th>
+                        <th>Total price</th>
+                        <th>Car name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}" >
+                            <td th:text="${order.getName()}"></td>
+                            <td th:text="${order.getEmail()}"></td>
+                            <td th:text="${order.getAddress()}"></td>
+                            <td th:text="${order.getPhone()}"></td>
+                            <td th:text="${order.getNumberOfDays()}"></td>
+                            <td th:text="${order.getTotalPrice()}"></td>
+                            <td th:text="${#strings.capitalizeWords(order.getCar().getName())}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+</html>

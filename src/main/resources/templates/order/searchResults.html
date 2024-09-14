@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/defaultLayout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+  <div layout:fragment="content" style="margin-top: 80px">
+    <div class="row justify-content-center" th:each="car : ${cars}">
+        <div class="card w-25 mb-4">
+          <div th:if="${!#strings.isEmpty(car.getImage())}" class="row justify-content-center mt-3">
+            <img th:src="${'/images/' + car.getImage()}" class="card-img-top" alt="A picture of the car"
+                 style="max-height: 200px; object-fit: cover">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title" th:text="${#strings.capitalizeWords(car.getName())}">Name</h5>
+            <p class="card-text" th:text="${car.getPrice()} + ' USD for a day'">Price per day</p>
+            <form action="#" method="post" th:action="@{/car/{id}(id=${car.getId()})}">
+              <button type="submit" class="btn btn-outline-primary">Rent this car</button>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</html>

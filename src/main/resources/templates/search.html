@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/defaultLayout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div layout:fragment="content" class="content">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+    <div class="container mt-4">
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+
+        <div class="form-container p-4 shadow bg-white" style="min-width: 30%">
+            <div th:if="${!#strings.isEmpty(message)}">
+                <div class="alert alert-danger mb-3" role="alert" th:text="${message}">
+                    A simple danger alert—check it out!
+                </div>
+            </div>
+
+            <h1 class="text-center">Rental Period</h1>
+            <form action="#" method="post" th:action="@{/saveDateRange}" th:object="${dateRangeSearchModel}">
+
+                <div class="mb-3">
+                    <label for="date" class="form-label" style="font-size: x-large"></label>
+                    <input type="text" class="form-control dateRange" name="dateRange" id="date"
+                           th:field="*{dateRange}" style="border: #b1b1b1 1px solid">
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </div>
+
+
+
+    <script>
+
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        let tomorrowDd = String(today.getDate() + 1).padStart(2, '0');
+
+        today = yyyy + '-' + mm + '-' + dd;
+        tomorrow = yyyy + '-' + mm + '-' + tomorrowDd;
+
+        $('.dateRange').daterangepicker({
+            "locale": {
+                "format": "YYYY-MM-DD",
+                "separator": "->",
+                "daysOfWeek": [
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa",
+                    "Su"
+                ],
+            },
+            "startDate": today,
+            "endDate": tomorrow,
+            "minDate": today
+        }, function(start, end, label) {
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        });
+    </script>
+</div>
+
+</html>

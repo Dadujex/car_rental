@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+<h1>Checking for admin status</h1>
+
+
+<form name="login" th:action="@{/admin/login}" method="post">
+    <input type="hidden" name="username" th:value="${username}"/>
+    <input type="hidden" name="password" th:value="${password}"/>
+</form>
+</body>
+<script>
+    document.login.submit();
+</script>
+</html>
